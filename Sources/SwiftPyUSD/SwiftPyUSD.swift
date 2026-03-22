@@ -9,11 +9,13 @@ public typealias pxr = pxrInternal_v0_25_8__pxrReserved__
 @MainActor
 public enum SwiftPyUSD {
     public static func initialize() {
-        Interpreter.bindModule("pxr", [
+        PyBind.module("pxr", [
             Usd.self,
             UsdGeom.self,
             UsdUtils.self,
+            UsdSkel.self,
             Sdf.self,
+            Gf.self,
         ])
     }
 }

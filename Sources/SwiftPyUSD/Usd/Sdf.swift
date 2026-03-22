@@ -8,13 +8,10 @@
 import SwiftPy
 import OpenUSD
 
-extension PythonBindable {
-    typealias object = PyAPI.Reference
-}
-
 @MainActor
 @Scriptable(convertsToSnakeCase: false)
 final class Sdf: PythonBindable {
+    static let Path: object? = SdfPath.pyType.object
     static let AssetPath: object? = SdfAssetPath.pyType.object
     static let Layer: object? = SdfLayer.pyType.object
 }
@@ -25,6 +22,19 @@ final class SdfAssetPath {
     
     init(path: String) {
         self.base = pxr.SdfAssetPath(std.string(path))
+    }
+}
+
+@Scriptable("Sdf.Path", convertsToSnakeCase: false)
+final class SdfPath {
+    internal let base: pxr.SdfPath
+
+    internal init(base: pxr.SdfPath) {
+        self.base = base
+    }
+
+    init(path: String) {
+        self.base = pxr.SdfPath(std.string(path))
     }
 }
 
