@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "openusd",
+    name: "swiftpy-usd",
     platforms: [.macOS(.v14), .iOS(.v17)],
     products: [
         .library(
