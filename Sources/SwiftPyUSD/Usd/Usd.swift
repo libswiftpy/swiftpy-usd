@@ -135,13 +135,46 @@ public class UsdPrim: ObjectWrapper<pxr.UsdPrim> {
 }
 
 @Scriptable("Usd.Attribute", convertsToSnakeCase: false)
-public class UsdAttribute: ObjectWrapper<pxr.UsdAttribute> {
+@MainActor
+public class UsdAttribute: ObjectWrapper<pxr.UsdAttribute>, Sendable {
     func Get() throws -> object? {
         throw PythonError.NotImplementedError("UsdAttribute.Get is not implemented")
     }
 
-    func Set(values: [Float], timecode: Int) -> Bool {
-        base.Set(pxr.VtValue(values.vtArray()), pxr.UsdTimeCode(timecode))
+    func GetTypeName() {
+        base.GetTypeName()
+    }
+    
+    func Set(value: object, timecode: Int? = nil) -> Bool {
+        let timecode = if let timecode {
+            pxr.UsdTimeCode(timecode)
+        } else {
+            pxr.UsdTimeCode.Default()
+        }
+
+        if let array = [Float](value) {
+            return base.Set(pxr.VtValue(array.vtArray()), timecode)
+        }
+
+        if let assetPath = SdfAssetPath(value) {
+            return base.Set(pxr.VtValue(assetPath.base), timecode)
+        }
+
+        if let tc = SdfTimeCode(value) {
+            return base.Set(pxr.VtValue(tc.base), timecode)
+        }
+        
+        // TODO: Detect base type
+        if let str = String(value) {
+            return base.Set(pxr.VtValue(pxr.TfToken(str)), timecode)
+        }
+
+        // TODO: Detect base type
+        if let int = Int(value) {
+            return base.Set(pxr.VtValue(pxr.SdfTimeCode(Double(int))), timecode)
+        }
+        
+        return false
     }
 }
 

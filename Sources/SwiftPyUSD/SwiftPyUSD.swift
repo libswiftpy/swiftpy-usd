@@ -13,8 +13,9 @@ public enum SwiftPyUSD {
             pxr.classes(
                 Usd.self,
                 UsdGeom.self,
-                UsdUtils.self,
                 UsdSkel.self,
+                UsdMedia.self,
+                UsdUtils.self,
                 Sdf.self,
                 Gf.self,
             )

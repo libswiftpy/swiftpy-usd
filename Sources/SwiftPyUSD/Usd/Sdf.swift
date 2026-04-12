@@ -14,6 +14,20 @@ final class Sdf: PythonBindable {
     static let Path: object? = py.tpobject(SdfPath.pyType)
     static let AssetPath: object? = py.tpobject(SdfAssetPath.pyType)
     static let Layer: object? = py.tpobject(SdfLayer.pyType)
+    static let TimeCode: object? = SdfTimeCode.pyTypeObject
+}
+
+@Scriptable("Sdf.TimeCode", convertsToSnakeCase: false)
+public class SdfTimeCode: PythonConvertible {
+    internal let base: pxr.SdfTimeCode
+    
+    internal init(_ base: pxr.SdfTimeCode) {
+        self.base = base
+    }
+    
+    convenience init(value: Double) {
+        self.init(pxr.SdfTimeCode(value))
+    }
 }
 
 @Scriptable("Sdf.AssetPath", convertsToSnakeCase: false)
