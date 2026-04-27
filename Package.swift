@@ -34,10 +34,20 @@ let package = Package(
         ),
 
         .target(
+            name: "Gf",
+            dependencies: [
+                "pxr",
+                "SwiftPy",
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+
+        .target(
             name: "SwiftPyUSD",
             dependencies: [
                 .product(name: "OpenUSD", package: "SwiftUsd"),
                 "SwiftPy",
+                "Gf",
                 "Sdf",
             ],
             swiftSettings: [.interoperabilityMode(.Cxx)]

@@ -7,6 +7,7 @@
 
 import SwiftPy
 import OpenUSD
+import Gf
 
 @MainActor
 @Scriptable(convertsToSnakeCase: false)
@@ -77,8 +78,8 @@ final class UsdGeomXformOp: PythonConvertible {
         self.base = base
     }
     
-    func Set(value: GfVec3d) -> Bool {
-        base.Set(value.base, pxr.UsdTimeCode.Default())
+    func Set(value: Gf.Vec3d) -> Bool {
+        base.Set(value.value, pxr.UsdTimeCode.Default())
     }
 }
 

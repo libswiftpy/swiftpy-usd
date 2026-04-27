@@ -10,7 +10,7 @@ import pxr
 
 @MainActor
 public func bindModule() {
-    PyBind.module("Sdf") { Sdf in
+    PyBind.module("pxr.Sdf") { Sdf in
         Sdf.classes(
             AssetPath.self,
             Path.self,

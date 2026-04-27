@@ -19,6 +19,8 @@ public typealias SdfVariability = pxr.SdfVariability
 public let SdfVariabilityUniform = pxr.SdfVariabilityUniform
 public let SdfVariabilityVarying = pxr.SdfVariabilityVarying
 
+public typealias GfVec3d = pxr.GfVec3d
+
 open class ClassWrapper<Object> {
     public var value: Object
 
