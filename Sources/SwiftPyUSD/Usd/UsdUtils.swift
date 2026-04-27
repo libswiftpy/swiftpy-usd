@@ -7,11 +7,12 @@
 
 import SwiftPy
 import OpenUSD
+import Sdf
 
 @Scriptable(convertsToSnakeCase: false)
 final class UsdUtils {
     static func CreateNewARKitUsdzPackage(assetPath: String, outputPath: String, layerName: String = "Root") -> Bool {
-        let assetPath = SdfAssetPath(path: assetPath)
-        return pxr.UsdUtilsCreateNewARKitUsdzPackage(assetPath.base, std.string(outputPath), std.string(layerName))
+        let assetPath = AssetPath(path: assetPath)
+        return pxr.UsdUtilsCreateNewARKitUsdzPackage(assetPath.value, std.string(outputPath), std.string(layerName))
     }
 }

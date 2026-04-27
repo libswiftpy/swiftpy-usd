@@ -17,23 +17,37 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "pxr",
+            dependencies: [
+                .product(name: "OpenUSD", package: "SwiftUsd")
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+
+        .target(
+            name: "Sdf",
+            dependencies: [
+                "pxr",
+                "SwiftPy",
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+
+        .target(
             name: "SwiftPyUSD",
             dependencies: [
                 .product(name: "OpenUSD", package: "SwiftUsd"),
                 "SwiftPy",
+                "Sdf",
             ],
-            swiftSettings: [
-                .interoperabilityMode(.Cxx)
-            ]
+            swiftSettings: [.interoperabilityMode(.Cxx)]
         ),
-        
+
         .testTarget(
             name: "SwiftPyUSDTests",
             dependencies: ["SwiftPyUSD"],
-            swiftSettings: [
-                .interoperabilityMode(.Cxx)
-            ]
-        )
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
     ],
     cxxLanguageStandard: .gnucxx17
 )

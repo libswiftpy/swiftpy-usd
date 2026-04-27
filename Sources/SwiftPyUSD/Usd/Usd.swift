@@ -7,6 +7,7 @@
 
 import SwiftPy
 import OpenUSD
+import Sdf
 
 @MainActor
 @Scriptable(convertsToSnakeCase: false)
@@ -83,10 +84,6 @@ public class UsdStage {
         stage.SetTimeCodesPerSecond(timeCodesPerSecond)
     }
 
-    func GetRootLayer() -> SdfLayer {
-        SdfLayer(layer: stage.GetRootLayer())
-    }
-    
     static func CreateNew(name: String) throws -> UsdStage? {
         try UsdStage(pxr.UsdStage.CreateNew(std.string(name)))
     }
@@ -115,8 +112,8 @@ public class UsdPrim: ObjectWrapper<pxr.UsdPrim>, Sendable {
     }
     
     /// Return the complete scene path to this object on its Stage.
-    public func GetPath() -> SdfPath {
-        SdfPath(base: base.GetPath())
+    public func GetPath() -> Sdf.Path {
+        Sdf.Path(base.GetPath())
     }
 
     public func GetPropertyNames() -> [String] {
@@ -126,9 +123,9 @@ public class UsdPrim: ObjectWrapper<pxr.UsdPrim>, Sendable {
             }
     }
 
-    public func CreateAttribute(name: String, typeName: SdfValueTypeName, custom: Bool = true, variability: SdfVariability? = nil) -> UsdAttribute? {
+    public func CreateAttribute(name: String, typeName: Sdf.ValueTypeName, custom: Bool = true, variability: Sdf.Variability? = nil) -> UsdAttribute? {
         let variability = variability ?? Sdf.VariabilityVarying
-        let attribute = base.CreateAttribute(pxr.TfToken(name), typeName.base, custom, variability.base)
+        let attribute = base.CreateAttribute(pxr.TfToken(name), typeName.value, custom, variability.value)
         return UsdAttribute(attribute)
     }
     
@@ -153,10 +150,10 @@ public class UsdAttribute: ObjectWrapper<pxr.UsdAttribute>, Sendable {
         throw PythonError.NotImplementedError("UsdAttribute.Get is not implemented")
     }
 
-    func GetTypeName() -> SdfValueTypeName {
-        SdfValueTypeName(base.GetTypeName())
+    func GetTypeName() -> Sdf.ValueTypeName {
+        Sdf.ValueTypeName(value: base.GetTypeName())
     }
-    
+
     func Set(value: object, timecode: Int? = nil) -> Bool {
         let timecode = if let timecode {
             pxr.UsdTimeCode(timecode)
@@ -167,8 +164,8 @@ public class UsdAttribute: ObjectWrapper<pxr.UsdAttribute>, Sendable {
         let vtValue: pxr.VtValue? = {
             switch base.GetTypeName() {
             case .Asset:
-                if let path = SdfAssetPath(value) {
-                    return pxr.VtValue(path.base)
+                if let path = Sdf.AssetPath(value) {
+                    return pxr.VtValue(path.value)
                 }
 
                 if let str = String(value) {
@@ -176,8 +173,8 @@ public class UsdAttribute: ObjectWrapper<pxr.UsdAttribute>, Sendable {
                 }
                 
             case .TimeCode:
-                if let timeCode = SdfTimeCode(value) {
-                    return pxr.VtValue(timeCode.base)
+                if let timeCode = Sdf.TimeCode(value) {
+                    return pxr.VtValue(timeCode.value)
                 }
 
                 if value.canCast(to: .float) {
@@ -221,8 +218,8 @@ public class UsdReferences {
         self.base = base
     }
 
-    func AddReference(identifier: String, primPath: SdfPath) -> Bool {
-        base.AddReference(std.string(identifier), primPath.base, pxr.SdfLayerOffset(0, 1))
+    func AddReference(identifier: String, primPath: Sdf.Path) -> Bool {
+        base.AddReference(std.string(identifier), primPath.value, pxr.SdfLayerOffset(0, 1))
     }
 }
 
@@ -230,10 +227,10 @@ public class UsdReferences {
 @Scriptable("Usd.Relationship", convertsToSnakeCase: false)
 public class UsdRelationship: ObjectWrapper<pxr.UsdRelationship> {
     /// Make the authoring layer’s opinion of the targets list explicit, and set exactly to targets
-    func SetTargets(targets: [SdfPath]) -> Bool {
+    func SetTargets(targets: [Sdf.Path]) -> Bool {
         var vector = pxr.SdfPathVector()
         for target in targets {
-            vector.push_back(target.base)
+            vector.push_back(target.value)
         }
         return base.SetTargets(vector)
     }

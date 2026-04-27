@@ -7,6 +7,7 @@
 
 import SwiftPy
 import OpenUSD
+import Sdf
 
 @Scriptable(convertsToSnakeCase: false)
 @MainActor
@@ -34,9 +35,9 @@ public class UsdMediaSpatialAudio: PythonConvertible {
         UsdAttribute(base.CreateStartTimeAttr(pxr.VtValue()))
     }
     
-    public static func Define(stage: UsdStage, path: SdfPath) -> UsdMediaSpatialAudio? {
+    public static func Define(stage: UsdStage, path: Sdf.Path) -> UsdMediaSpatialAudio? {
         let stagePointer = Overlay.TfWeakPtr(stage.stage)
-        let audio = pxr.UsdMediaSpatialAudio.Define(stagePointer, path.base)
+        let audio = pxr.UsdMediaSpatialAudio.Define(stagePointer, path.value)
         return UsdMediaSpatialAudio(audio)
     }
 }

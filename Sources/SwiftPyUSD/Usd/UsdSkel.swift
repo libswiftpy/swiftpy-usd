@@ -7,6 +7,7 @@
 
 import SwiftPy
 import OpenUSD
+import Sdf
 
 @Scriptable(convertsToSnakeCase: false)
 @MainActor
@@ -33,13 +34,13 @@ public class UsdSkelAnimation: PythonConvertible {
         UsdAttribute(base.CreateBlendShapeWeightsAttr(pxr.VtValue()))
     }
 
-    func GetPath() -> SdfPath {
-        SdfPath(base: base.GetPath())
+    func GetPath() -> Sdf.Path {
+        Sdf.Path(base.GetPath())
     }
-    
-    static func Define(stage: UsdStage, path: SdfPath) -> UsdSkelAnimation {
+
+    static func Define(stage: UsdStage, path: Sdf.Path) -> UsdSkelAnimation {
         let stageRef = Overlay.TfWeakPtr(stage.stage)
-        return UsdSkelAnimation(base: pxr.UsdSkelAnimation.Define(stageRef, path.base))
+        return UsdSkelAnimation(base: pxr.UsdSkelAnimation.Define(stageRef, path.value))
     }
 }
 
