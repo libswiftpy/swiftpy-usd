@@ -21,6 +21,10 @@ public let SdfVariabilityVarying = pxr.SdfVariabilityVarying
 
 public typealias GfVec3d = pxr.GfVec3d
 
+// MARK: - UsdUtils
+
+public let UsdUtilsCreateNewARKitUsdzPackage = pxr.UsdUtilsCreateNewARKitUsdzPackage
+
 open class ClassWrapper<Object> {
     public var value: Object
 

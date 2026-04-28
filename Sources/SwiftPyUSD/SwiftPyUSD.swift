@@ -5,6 +5,7 @@ import OpenUSD
 import SwiftPy
 import Gf
 import Sdf
+import UsdUtils
 
 public typealias pxr = pxrInternal_v0_25_8__pxrReserved__
 
@@ -13,6 +14,7 @@ public enum SwiftPyUSD {
     public static func initialize() {
         Gf.bindModule()
         Sdf.bindModule()
+        UsdUtils.bindModule()
 
         PyBind.module("pxr") { pxr in
             pxr.classes(
@@ -20,7 +22,6 @@ public enum SwiftPyUSD {
                 UsdGeom.self,
                 UsdSkel.self,
                 UsdMedia.self,
-                UsdUtils.self,
             )
         }
     }
