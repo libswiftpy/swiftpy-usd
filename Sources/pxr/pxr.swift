@@ -36,6 +36,9 @@ public typealias UsdReferences = pxr.UsdReferences
 public typealias UsdRelationship = pxr.UsdRelationship
 public typealias UsdTimeCode = pxr.UsdTimeCode
 
+// MARK: - UsdMedia
+public typealias UsdMediaSpatialAudio = pxr.UsdMediaSpatialAudio
+
 // MARK: - UsdUtils
 
 public let UsdUtilsCreateNewARKitUsdzPackage = pxr.UsdUtilsCreateNewARKitUsdzPackage
