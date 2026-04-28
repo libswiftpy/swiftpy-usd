@@ -18,13 +18,9 @@ public class Attribute: ClassWrapper<pxr.UsdAttribute>, Sendable {
         Sdf.ValueTypeName(value: value.GetTypeName())
     }
 
-    /// Set the value of this attribute in the current UsdEditTarget to value at TimeCode time, which defaults to default.
-    public func Set(attrValue: object, timecode: Int? = nil) -> Bool {
-        let timecode = if let timecode {
-            pxr.UsdTimeCode(timecode)
-        } else {
-            pxr.UsdTimeCode.Default()
-        }
+    /// Set the value of this attribute in the current UsdEditTarget to value at time, which defaults to default.
+    public func Set(attrValue: object, time: Double? = nil) -> Bool {
+        let timeCode = Usd.TimeCode(time)
         
         let vtValue: pxr.VtValue? = {
             switch value.GetTypeName() {
@@ -67,7 +63,7 @@ public class Attribute: ClassWrapper<pxr.UsdAttribute>, Sendable {
             return nil
         }()
 
-        if let vtValue, value.Set(vtValue, timecode) {
+        if let vtValue, value.Set(vtValue, timeCode.value) {
             return true
         }
 

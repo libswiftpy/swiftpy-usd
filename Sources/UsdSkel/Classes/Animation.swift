@@ -13,7 +13,7 @@ import Sdf
 /// Describes a skel animation, where joint animation is stored in a vectorized form.
 @Scriptable(convertsToSnakeCase: false)
 @MainActor
-public class Animation: ClassWrapper<pxr.UsdSkelAnimation> {
+public class Animation: ClassWrapper<pxr.UsdSkelAnimation>, Sendable {
     /// Array of tokens identifying which blend shapes this animation's data applies to. The tokens for blendShapes correspond to the tokens set in the skel:blendShapes binding property of the UsdSkel.BindingAPI.
     public func CreateBlendShapesAttr(attributes: [String]) throws(PythonError) -> Usd.Attribute {
         let array = attributes.vtTokenArray()

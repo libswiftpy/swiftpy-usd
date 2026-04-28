@@ -27,7 +27,7 @@ public func bindModule() {
     PyBind.module("pxr.UsdUtils") { UsdUtils in
         UsdUtils.def(
             "CreateNewARKitUsdzPackage(asset_path: str, usdz_file_path: str, layer_name: str = 'Root') -> bool",
-            docstring: "Similar to UsdUtilsCreateNewUsdzPackage, this function packages all of the dependencies of the given asset."
+            docstring: "Packages all of the dependencies of the given asset."
         ) { argc, argv in
             PyBind.function(argc, argv) { (
                 assetPath: PyAPI.Reference,

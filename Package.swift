@@ -8,7 +8,16 @@ let package = Package(
     products: [
         .library(
             name: "SwiftPyUSD",
-            targets: ["SwiftPyUSD"]
+            targets: [
+                "SwiftPyUSD",
+                "Gf",
+                "Sdf",
+                "Usd",
+                "UsdGeom",
+                "UsdMedia",
+                "UsdSkel",
+                "UsdUtils",
+            ]
         ),
     ],
     dependencies: [
@@ -19,7 +28,10 @@ let package = Package(
         .target(
             name: "pxr",
             dependencies: [
-                .product(name: "OpenUSD", package: "SwiftUsd")
+                .product(
+                    name: "OpenUSD",
+                    package: "SwiftUsd"
+                )
             ],
             swiftSettings: [.interoperabilityMode(.Cxx)]
         ),
@@ -47,6 +59,16 @@ let package = Package(
             dependencies: [
                 "pxr",
                 "SwiftPy",
+                "Sdf",
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+        
+        .target(
+            name: "UsdGeom",
+            dependencies: [
+                "pxr",
+                "Usd",
                 "Sdf",
             ],
             swiftSettings: [.interoperabilityMode(.Cxx)]
@@ -87,11 +109,11 @@ let package = Package(
         .target(
             name: "SwiftPyUSD",
             dependencies: [
-                .product(name: "OpenUSD", package: "SwiftUsd"),
                 "SwiftPy",
                 "Gf",
                 "Sdf",
                 "Usd",
+                "UsdGeom",
                 "UsdMedia",
                 "UsdSkel",
                 "UsdUtils",

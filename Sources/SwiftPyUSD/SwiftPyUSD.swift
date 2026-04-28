@@ -1,31 +1,21 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-import OpenUSD
-import SwiftPy
 import Gf
 import Sdf
 import Usd
+import UsdGeom
 import UsdMedia
 import UsdSkel
 import UsdUtils
 
-public typealias pxr = pxrInternal_v0_25_8__pxrReserved__
-
 @MainActor
-public enum SwiftPyUSD {
-    public static func initialize() {
-        Gf.bindModule()
-        Sdf.bindModule()
-        Usd.bindModule()
-        UsdMedia.bindModule()
-        UsdSkel.bindModule()
-        UsdUtils.bindModule()
-
-        PyBind.module("pxr") { pxr in
-            pxr.classes(
-                UsdGeom.self,
-            )
-        }
-    }
+public func initialize() {
+    Gf.bindModule()
+    Sdf.bindModule()
+    Usd.bindModule()
+    UsdGeom.bindModule()
+    UsdMedia.bindModule()
+    UsdSkel.bindModule()
+    UsdUtils.bindModule()
 }

@@ -45,6 +45,16 @@ public typealias UsdMediaSpatialAudio = pxr.UsdMediaSpatialAudio
 public typealias UsdSkelAnimation = pxr.UsdSkelAnimation
 public typealias UsdSkelBindingAPI = pxr.UsdSkelBindingAPI
 
+// MARK: - UsdGeom
+
+public typealias UsdGeomXform = pxr.UsdGeomXform
+public typealias UsdGeomXformable = pxr.UsdGeomXformable
+public typealias UsdGeomXformOp = pxr.UsdGeomXformOp
+public typealias UsdGeomSphere = pxr.UsdGeomSphere
+
+public let UsdGeomSetStageMetersPerUnit = pxr.UsdGeomSetStageMetersPerUnit
+public let UsdGeomSetStageUpAxis = pxr.UsdGeomSetStageUpAxis
+
 // MARK: - UsdUtils
 
 public let UsdUtilsCreateNewARKitUsdzPackage = pxr.UsdUtilsCreateNewARKitUsdzPackage
