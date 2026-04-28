@@ -8,6 +8,7 @@
 import SwiftPy
 import OpenUSD
 import Sdf
+import Usd
 
 @Scriptable(convertsToSnakeCase: false)
 @MainActor
@@ -24,22 +25,22 @@ public class UsdSkelAnimation: PythonConvertible {
         self.base = base
     }
     
-    func CreateBlendShapesAttr(attributes: [String]) -> UsdAttribute? {
+    func CreateBlendShapesAttr(attributes: [String]) -> Usd.Attribute? {
         let array = attributes.vtTokenArray()
         let attrib = base.CreateBlendShapesAttr(pxr.VtValue(array))
-        return UsdAttribute(attrib)
+        return Usd.Attribute(value: attrib)
     }
     
-    func CreateBlendShapeWeightsAttr() -> UsdAttribute? {
-        UsdAttribute(base.CreateBlendShapeWeightsAttr(pxr.VtValue()))
+    func CreateBlendShapeWeightsAttr() -> Usd.Attribute? {
+        Usd.Attribute(value: base.CreateBlendShapeWeightsAttr(pxr.VtValue()))
     }
 
     func GetPath() -> Sdf.Path {
         Sdf.Path(base.GetPath())
     }
 
-    static func Define(stage: UsdStage, path: Sdf.Path) -> UsdSkelAnimation {
-        let stageRef = Overlay.TfWeakPtr(stage.stage)
+    static func Define(stage: Usd.Stage, path: Sdf.Path) -> UsdSkelAnimation {
+        let stageRef = Overlay.TfWeakPtr(stage.value)
         return UsdSkelAnimation(base: pxr.UsdSkelAnimation.Define(stageRef, path.value))
     }
 }
@@ -54,12 +55,16 @@ class UsdSkelBindingAPI: PythonConvertible {
     }
 
     /// Creates an animation source to be bound to Skeleton primitives at or beneath the location at which this property is defined.
-    func CreateAnimationSourceRel() -> UsdRelationship? {
-        UsdRelationship(base.CreateAnimationSourceRel())
+    func CreateAnimationSourceRel() throws(PythonError) -> Usd.Relationship? {
+        let rel = base.CreateAnimationSourceRel()
+        guard rel.IsValid() else {
+            throw .AssertionError("Failed to create animation source relationship")
+        }
+        return Usd.Relationship(value: rel)
     }
     
     /// Applies this single-apply API schema to the given prim.
-    static func Apply(prim: UsdPrim) -> UsdSkelBindingAPI {
-        UsdSkelBindingAPI(base: pxr.UsdSkelBindingAPI.Apply(prim.base))
+    static func Apply(prim: Usd.Prim) -> UsdSkelBindingAPI {
+        UsdSkelBindingAPI(base: pxr.UsdSkelBindingAPI.Apply(prim.value))
     }
 }

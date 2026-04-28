@@ -41,7 +41,17 @@ let package = Package(
             ],
             swiftSettings: [.interoperabilityMode(.Cxx)]
         ),
-        
+
+        .target(
+            name: "Usd",
+            dependencies: [
+                "pxr",
+                "SwiftPy",
+                "Sdf",
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+
         .target(
             name: "UsdUtils",
             dependencies: [
@@ -59,6 +69,7 @@ let package = Package(
                 "SwiftPy",
                 "Gf",
                 "Sdf",
+                "Usd",
                 "UsdUtils"
             ],
             swiftSettings: [.interoperabilityMode(.Cxx)]

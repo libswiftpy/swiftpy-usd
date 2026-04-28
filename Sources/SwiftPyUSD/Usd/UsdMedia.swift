@@ -8,6 +8,7 @@
 import SwiftPy
 import OpenUSD
 import Sdf
+import Usd
 
 @Scriptable(convertsToSnakeCase: false)
 @MainActor
@@ -27,16 +28,16 @@ public class UsdMediaSpatialAudio: PythonConvertible {
         self.base = base
     }
 
-    public func CreateFilePathAttr() -> UsdAttribute? {
-        UsdAttribute(base.CreateFilePathAttr(pxr.VtValue()))
+    public func CreateFilePathAttr() -> Usd.Attribute? {
+        Usd.Attribute(value: base.CreateFilePathAttr(pxr.VtValue()))
     }
     
-    public func CreateStartTimeAttr() -> UsdAttribute? {
-        UsdAttribute(base.CreateStartTimeAttr(pxr.VtValue()))
+    public func CreateStartTimeAttr() -> Usd.Attribute? {
+        Usd.Attribute(value: base.CreateStartTimeAttr(pxr.VtValue()))
     }
     
-    public static func Define(stage: UsdStage, path: Sdf.Path) -> UsdMediaSpatialAudio? {
-        let stagePointer = Overlay.TfWeakPtr(stage.stage)
+    public static func Define(stage: Usd.Stage, path: Sdf.Path) -> UsdMediaSpatialAudio? {
+        let stagePointer = Overlay.TfWeakPtr(stage.value)
         let audio = pxr.UsdMediaSpatialAudio.Define(stagePointer, path.value)
         return UsdMediaSpatialAudio(audio)
     }

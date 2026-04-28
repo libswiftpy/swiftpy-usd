@@ -8,6 +8,7 @@
 import SwiftPy
 import OpenUSD
 import Gf
+import Usd
 
 @MainActor
 @Scriptable(convertsToSnakeCase: false)
@@ -18,13 +19,13 @@ final class UsdGeom {
     static let Xformable: object? = UsdGeomXformable.pyTypeObject
 
     /// Author stage's metersPerUnit. Returns True if metersPerUnit was successfully set.
-    static func SetStageMetersPerUnit(stage: UsdStage, metersPerUnit: Double) -> Bool {
-        return pxr.UsdGeomSetStageMetersPerUnit(stage.weakPtr, metersPerUnit)
+    static func SetStageMetersPerUnit(stage: Stage, metersPerUnit: Double) -> Bool {
+        pxr.UsdGeomSetStageMetersPerUnit(Overlay.TfWeakPtr(stage.value), metersPerUnit)
     }
 
     /// Set stage's upAxis to axis, which must be one of UsdGeom.Tokens.y or UsdGeom.Tokens.z. Returns true if upAxis was successfully set.
-    static func SetStageUpAxis(stage: UsdStage, token: String) -> Bool {
-        pxr.UsdGeomSetStageUpAxis(stage.weakPtr, pxr.TfToken(token))
+    static func SetStageUpAxis(stage: Usd.Stage, token: String) -> Bool {
+        pxr.UsdGeomSetStageUpAxis(Overlay.TfWeakPtr(stage.value), pxr.TfToken(token))
     }
 }
 
@@ -42,8 +43,8 @@ final class UsdGeomXform: PythonConvertible {
         self.base = base
     }
 
-    static func Define(stage: UsdStage, path: String) -> UsdGeomXform {
-        let base = pxr.UsdGeomXform.Define(stage.weakPtr, pxr.SdfPath(path))
+    static func Define(stage: Usd.Stage, path: String) -> UsdGeomXform {
+        let base = pxr.UsdGeomXform.Define(Overlay.TfWeakPtr(stage.value), pxr.SdfPath(path))
         return UsdGeomXform(base: base)
     }
 }
@@ -52,8 +53,8 @@ final class UsdGeomXform: PythonConvertible {
 final class UsdGeomXformable: PythonConvertible {
     internal let base: pxr.UsdGeomXformable
     
-    init(prim: UsdPrim) {
-        base = pxr.UsdGeomXformable(prim.base)
+    init(prim: Usd.Prim) {
+        base = pxr.UsdGeomXformable(prim.value)
     }
     
     func GetTranslateOp() -> UsdGeomXformOp? {
@@ -91,8 +92,8 @@ final class UsdGeomSphere: PythonConvertible {
         self.base = base
     }
 
-    static func Define(stage: UsdStage, path: String) -> UsdGeomSphere {
-        let base = pxr.UsdGeomSphere.Define(stage.weakPtr, pxr.SdfPath(path))
+    static func Define(stage: Usd.Stage, path: String) -> UsdGeomSphere {
+        let base = pxr.UsdGeomSphere.Define(Overlay.TfWeakPtr(stage.value), pxr.SdfPath(path))
         return UsdGeomSphere(base: base)
     }
 }
