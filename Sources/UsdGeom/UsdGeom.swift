@@ -25,10 +25,11 @@ public func SetStageUpAxis(stage: Stage, token: String) -> Bool {
 public func bindModule() {
     PyBind.module("pxr.UsdGeom") { UsdGeom in
         UsdGeom.classes(
-            Xformable.self,
-            Xform.self,
-            XformOp.self,
             Sphere.self,
+            Tokens.self,
+            Xform.self,
+            Xformable.self,
+            XformOp.self,
         )
 
         UsdGeom.def(

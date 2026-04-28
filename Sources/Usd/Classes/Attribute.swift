@@ -19,7 +19,7 @@ public class Attribute: ClassWrapper<pxr.UsdAttribute>, Sendable {
     }
 
     /// Set the value of this attribute in the current UsdEditTarget to value at time, which defaults to default.
-    public func Set(attrValue: object, time: Double? = nil) -> Bool {
+    public func Set(attrValue: object, time: Int? = nil) -> Bool {
         let timeCode = Usd.TimeCode(time)
         
         let vtValue: pxr.VtValue? = {

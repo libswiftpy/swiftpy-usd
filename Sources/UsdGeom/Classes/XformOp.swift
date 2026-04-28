@@ -14,7 +14,7 @@ import Usd
 @Scriptable(convertsToSnakeCase: false)
 public class XformOp: ClassWrapper<pxr.UsdGeomXformOp> {
     /// Set the attribute value of the XformOp at time,
-    public func Set(vec3d: Gf.Vec3d, time: Double? = nil) -> Bool {
+    public func Set(vec3d: Gf.Vec3d, time: Int? = nil) -> Bool {
         let timeCode = Usd.TimeCode(time)
         return value.Set(vec3d.value, timeCode.value)
     }
