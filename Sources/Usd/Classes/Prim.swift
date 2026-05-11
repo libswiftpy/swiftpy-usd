@@ -23,12 +23,22 @@ public class Prim: ClassWrapper<pxr.UsdPrim>, Sendable {
         Sdf.Path(value.GetPath())
     }
 
+    /// Return the full name of this object, i.e. the last component of its Sdf.Path in namespace.
+    public func GetName() -> String {
+        String(value.GetName().GetString())
+    }
+
     /// Return all of this prim's property names (attributes and relationships), including all builtin properties.
     public func GetPropertyNames() -> [String] {
         value.GetPropertyNames(PxrOverlay.DefaultPropertyPredicateFunc)
             .map { token in
                 String(token.GetString())
             }
+    }
+
+    /// Return all this prim’s children.
+    public func GetAllChildren() -> [Prim] {
+        value.GetAllChildren().map(Prim.init)
     }
 
     /// Author scene description for the attribute named attrName at the current EditTarget if none already exists.  Return an attribute if scene description was successfully authored. Note that the supplied typeName and  custom arguments are only used in one specific case.

@@ -58,6 +58,7 @@ public let UsdGeomSetStageUpAxis = pxr.UsdGeomSetStageUpAxis
 // MARK: - UsdUtils
 
 public let UsdUtilsCreateNewARKitUsdzPackage = pxr.UsdUtilsCreateNewARKitUsdzPackage
+public let UsdUtilsComputeAllDependencies = pxr.UsdUtilsComputeAllDependencies
 
 public typealias TfToken = pxr.TfToken
 

@@ -32,6 +32,12 @@ public class Stage: ClassWrapper<pxr.UsdStage>, Sendable {
         return prim.IsValid() ? Prim(value: prim) : nil
     }
 
+    /// Return the stage's "pseudo-root" prim, whose name is defined by Usd.
+    public func GetPseudoRoot() -> Prim? {
+        let prim = value.GetPseudoRoot()
+        return prim.IsValid() ? Prim(value: prim) : nil
+    }
+
     /// Traverse the active, loaded, defined, non-abstract prims on this stage depth-first.
     public func Traverse() -> [Prim] {
         value.Traverse().map(Prim.init)
