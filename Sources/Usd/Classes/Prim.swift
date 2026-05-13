@@ -28,6 +28,11 @@ public class Prim: ClassWrapper<pxr.UsdPrim>, Sendable {
         String(value.GetName().GetString())
     }
 
+    /// Return this prim's composed type name.
+    public func GetTypeName() -> String {
+        String(value.GetTypeName().GetString())
+    }
+
     /// Return all of this prim's property names (attributes and relationships), including all builtin properties.
     public func GetPropertyNames() -> [String] {
         value.GetPropertyNames(PxrOverlay.DefaultPropertyPredicateFunc)
