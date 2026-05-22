@@ -18,7 +18,7 @@ public class Animation: ClassWrapper<pxr.UsdSkelAnimation>, Sendable {
     public func CreateBlendShapesAttr(attributes: [String]) throws(PythonError) -> Usd.Attribute {
         let array = attributes.vtTokenArray()
         let attr = value.CreateBlendShapesAttr(VtValue(array))
-        guard attr.IsValid() else {
+        guard Bool(attr) else {
             throw .AssertionError("Failed to create blendShapes attribute")
         }
         return Usd.Attribute(value: attr)
@@ -27,7 +27,7 @@ public class Animation: ClassWrapper<pxr.UsdSkelAnimation>, Sendable {
     /// Creates an attribute for an array of weight values for each blend shape. Each weight value is associated with the corresponding blend shape identified within the blendShapes token array, and therefore must have the same length as blendShapes.
     public func CreateBlendShapeWeightsAttr() throws(PythonError) -> Usd.Attribute {
         let attr = value.CreateBlendShapeWeightsAttr(VtValue())
-        guard attr.IsValid() else {
+        guard Bool(attr) else {
             throw .AssertionError("Failed to create blendShapeWeights attribute")
         }
         return Usd.Attribute(value: attr)

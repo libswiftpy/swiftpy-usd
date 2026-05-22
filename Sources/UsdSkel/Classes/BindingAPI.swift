@@ -15,7 +15,7 @@ public class BindingAPI: ClassWrapper<pxr.UsdSkelBindingAPI> {
     /// Creates an animation source to be bound to Skeleton primitives at or beneath the location at which this property is defined.
     public func CreateAnimationSourceRel() throws(PythonError) -> Usd.Relationship {
         let rel = value.CreateAnimationSourceRel()
-        guard rel.IsValid() else {
+        guard Bool(rel) else {
             throw .AssertionError("Failed to create animation source relationship")
         }
         return Usd.Relationship(value: rel)

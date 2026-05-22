@@ -16,7 +16,7 @@ public class SpatialAudio: ClassWrapper<pxr.UsdMediaSpatialAudio> {
     /// Create an attribute for the path to the audio file.
     public func CreateFilePathAttr() throws(PythonError) -> Usd.Attribute {
         let attribute = value.CreateFilePathAttr(pxr.VtValue())
-        guard attribute.IsValid() else {
+        guard Bool(attribute) else {
             throw .AssertionError("Failed to create filePath attribute.")
         }
         return Usd.Attribute(value: attribute)
@@ -25,7 +25,7 @@ public class SpatialAudio: ClassWrapper<pxr.UsdMediaSpatialAudio> {
     /// Expressed in the timeCodesPerSecond of the containing stage, startTime specifies when the audio stream will start playing during animation playback.
     public func CreateStartTimeAttr() throws(PythonError) -> Usd.Attribute {
         let attribute = value.CreateStartTimeAttr(pxr.VtValue())
-        guard attribute.IsValid() else {
+        guard Bool(attribute) else {
             throw .AssertionError("Failed to create startTime attribute.")
         }
         return Usd.Attribute(value: attribute)

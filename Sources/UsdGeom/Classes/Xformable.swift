@@ -20,14 +20,14 @@ public class Xformable: ClassWrapper<pxr.UsdGeomXformable> {
     /// Get a translate operation from the local stack represented by this xformable.
     public func GetTranslateOp() -> XformOp? {
         let op = value.GetTranslateOp(pxr.TfToken())
-        guard op.IsDefined() else { return nil }
+        guard Bool(op) else { return nil }
         return XformOp(value: op)
     }
 
     /// Add a translate operation to the local stack represented by this xformable.
     public func AddTranslateOp() throws(PythonError) -> XformOp {
         let op = value.AddTranslateOp(pxr.UsdGeomXformOp.Precision.PrecisionDouble, pxr.TfToken())
-        guard op.IsDefined() else {
+        guard Bool(op) else {
             throw .AssertionError("Failed to Add translateOp to the prim.")
         }
         return XformOp(value: op)
