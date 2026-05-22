@@ -43,5 +43,11 @@ public func bindModule() {
                 )
             }
         }
+        
+//        UsdUtils.def("ComputeAllDependencies()") { argc, argv in
+//            PyBind.function(argc, argv) { () in
+//                throw PythonError.NotImplementedError("ComputeAllDependencies is not implemented.")
+//            }
+//        }
     }
 }

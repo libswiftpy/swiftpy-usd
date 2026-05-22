@@ -18,6 +18,41 @@ public class Prim: ClassWrapper<pxr.UsdPrim>, Sendable {
         value.SetActive(active)
     }
 
+    /// Return true if this prim is active, meaning neither it nor any of its ancestors have active=false.
+    public func IsActive() -> Bool {
+        value.IsActive()
+    }
+
+    /// Return true if this prim is active, and either it is loadable and it is loaded, or its nearest loadable ancestor is loaded, or it has no loadable ancestor.
+    public func IsLoaded() -> Bool {
+        value.IsLoaded()
+    }
+
+    /// Return true if this prim and all its ancestors have defining specifiers.
+    public func IsDefined() -> Bool {
+        value.IsDefined()
+    }
+
+    /// Return true if this prim or any of its ancestors is a class.
+    public func IsAbstract() -> Bool {
+        value.IsAbstract()
+    }
+
+    /// Return true if this prim has been marked as instanceable.
+    public func IsInstanceable() -> Bool {
+        value.IsInstanceable()
+    }
+
+    /// Return true if this prim is a model based on its kind metadata.
+    public func IsModel() -> Bool {
+        value.IsModel()
+    }
+
+    /// Return true if this prim is a model group based on its kind metadata.  If this prim is a group, it is also necessarily a model.
+    public func IsGroup() -> Bool {
+        value.IsGroup()
+    }
+
     /// Return the complete scene path to this object on its Stage.
     public func GetPath() -> Sdf.Path {
         Sdf.Path(value.GetPath())
