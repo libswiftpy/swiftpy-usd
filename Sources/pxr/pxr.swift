@@ -8,7 +8,7 @@
 import OpenUSD
 import CxxStdlib
 
-public typealias pxr = pxrInternal_v0_25_8__pxrReserved__
+public typealias pxr = pxrInternal_v0_26_5__pxrReserved__
 
 // MARK: - Sdf
 
