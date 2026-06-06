@@ -14,9 +14,9 @@ import Sdf
 @MainActor
 public class Sphere: ClassWrapper<pxr.UsdGeomSphere> {
     /// Ensure a Sphere prim is defined at the given path on the provided stage.
-    public static func Define(stage: Usd.Stage, path: object) throws -> Sphere {
+    public static func Define(stage: Usd.Stage, path: PyObject) throws -> Sphere {
         let stagePtr = PxrOverlay.TfWeakPtr(stage.value)
-        let path = try Path(path) ?? Path(path: .cast(path))
+        let path = try Path(path) ?? Path(path: .cast(path.reference))
         let sphere = pxr.UsdGeomSphere.Define(stagePtr, path.value)
         return Sphere(value: sphere)
     }

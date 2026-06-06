@@ -30,11 +30,11 @@ public func bindModule() {
             docstring: "Packages all of the dependencies of the given asset."
         ) { argc, argv in
             PyBind.function(argc, argv) { (
-                assetPath: PyAPI.Reference,
+                assetPath: PyObject,
                 usdzFilePath: String,
                 layerName: String
             ) in
-                let assetPath = try Sdf.AssetPath(assetPath) ?? Sdf.AssetPath(path: String.cast(assetPath))
+                let assetPath = try Sdf.AssetPath(assetPath) ?? Sdf.AssetPath(path: String.cast(assetPath.reference))
                 
                 return CreateNewUsdzPackage(
                     assetPath: assetPath,

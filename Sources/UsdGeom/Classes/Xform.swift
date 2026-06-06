@@ -15,8 +15,8 @@ import Sdf
 @MainActor
 public class Xform: ClassWrapper<pxr.UsdGeomXform> {
     /// Ensure an Xform prim is defined at the given path on the provided stage.
-    public static func Define(stage: Usd.Stage, path: object) throws -> Xform {
-        let path = try Path(path) ?? Path(path: .cast(path))
+    public static func Define(stage: Usd.Stage, path: PyObject) throws -> Xform {
+        let path = try Path(path) ?? Path(path: .cast(path.reference))
         let stagePtr = PxrOverlay.TfWeakPtr(stage.value)
         let xform = pxr.UsdGeomXform.Define(stagePtr, path.value)
         return Xform(value: xform)

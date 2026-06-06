@@ -39,8 +39,8 @@ public class Animation: ClassWrapper<pxr.UsdSkelAnimation>, Sendable {
     }
 
     /// Ensure an Animation prim is defined at the given path on the provided stage.
-    public static func Define(stage: Usd.Stage, path: object) throws -> Animation {
-        let path = try Path(path) ?? Path(path: String.cast(path))
+    public static func Define(stage: Usd.Stage, path: PyObject) throws -> Animation {
+        let path = try Path(path) ?? Path(path: String.cast(path.reference))
         let stagePtr = PxrOverlay.TfWeakPtr(stage.value)
         let anim = pxr.UsdSkelAnimation.Define(stagePtr, path.value)
         return Animation(value: anim)

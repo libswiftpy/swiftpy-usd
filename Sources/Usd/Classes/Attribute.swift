@@ -19,7 +19,7 @@ public class Attribute: ClassWrapper<pxr.UsdAttribute>, Sendable {
     }
 
     /// Set the value of this attribute in the current UsdEditTarget to value at time, which defaults to default.
-    public func Set(attrValue: object, time: Int? = nil) -> Bool {
+    public func Set(attrValue: PyObject, time: Int? = nil) -> Bool {
         let timeCode = Usd.TimeCode(time)
         
         let vtValue: pxr.VtValue? = {
@@ -38,8 +38,8 @@ public class Attribute: ClassWrapper<pxr.UsdAttribute>, Sendable {
                     return pxr.VtValue(timeCode.value)
                 }
 
-                if attrValue.canCast(to: .float) {
-                    return pxr.VtValue(pxr.SdfTimeCode(py.castfloat(attrValue)))
+                if attrValue.reference.canCast(to: .float) {
+                    return pxr.VtValue(pxr.SdfTimeCode(py.castfloat(attrValue.reference)))
                 }
                 
             case .Token:
